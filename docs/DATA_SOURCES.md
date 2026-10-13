@@ -1,66 +1,51 @@
-# 数据来源与清洗说明
+# 数据来源、粒度与清洗口径
 
-## 一、数据来源
+## 来源与文件
 
-本项目使用**真实公开数据**：北京新发地农产品批发市场官网"价格行情"页面
-（<https://www.xinfadi.com.cn/priceDetail.html>）的公开行情接口
-（`POST https://www.xinfadi.com.cn/getPriceData.html`）。
+来源为北京新发地批发市场[价格行情公开页](https://www.xinfadi.com.cn/priceDetail.html)。
+现有抓取脚本通过 `/getPriceData.html` 分页 POST 表单字段 limit、current、pubDateStartTime、pubDateEndTime。
+脚本当前配置的接口地址为 `http://www.xinfadi.com.cn/getPriceData.html`；本轮只验证仓库已有数据的离线分析，未重新联网确认接口或传输方式。
+历史采集说明记载全品类102,717条、蔬菜27,415条；全量文件未入库，本轮不重新验证全品类总数。
 
-- 接口以 `limit + current` 分页返回，日期区间为闭区间，需以
-  `application/x-www-form-urlencoded` 表单格式提交（JSON 格式不生效，已在脚本中验证）；
-- 单页上限约 1000~2000 条，脚本默认每页 1000 条；
-- 本次抓取窗口：**2026-01-01 ~ 2026-08-11**，共 103 页、**102,717 条**全品类记录；
-- 其中**蔬菜类（prodCat="蔬菜"）27,415 条**，作为本项目分析对象。
+- `data/raw/xinfadi_raw.jsonl`：抓取输出的全品类文件，忽略入库；本仓库未附带。
+- `data/raw/xinfadi_vegetables_raw.jsonl`：已入库蔬菜原始子集，可追溯报价字段。
+- `data/veg_wholesale_xinfadi.csv`：22,362条已聚合品种日报价，145个品种。
+- 日期窗口223个日历天，216个不同的有报价日期；不能将“有报价天数”等同于连续日期覆盖。
 
-## 二、抓取与复现
+## 离线复现
 
 ```bash
-# 1. 拉取原始数据（含全品类，约 100KB/页，保存为 JSONL）
-python scripts/fetch_xinfadi_data.py --start 2026/01/01 --end 2026/08/11
-
-# 2. 清洗并生成分析数据集
-python scripts/build_xinfadi_dataset.py
+python scripts/build_xinfadi_dataset.py --raw data/raw/xinfadi_vegetables_raw.jsonl
+python scripts/run_veg_monitor.py --generate-report
 ```
 
-- 原始全量数据：`data/raw/xinfadi_raw.jsonl`（体积较大，已加入 `.gitignore`）；
-- 蔬菜原始子集（溯源用）：`data/raw/xinfadi_vegetables_raw.jsonl`；
-- 清洗后分析数据：`data/veg_wholesale_xinfadi.csv`。
+清洗脚本会重写蔬菜子集与清洗后CSV；用 `--veg-raw` 和 `--out` 可导出到其他路径进行比对。
+线上更新先运行抓取脚本，再清洗；抓取按原始记录id去重，分析输入按(date, product)聚合。
 
-## 三、清洗规则
+## 清洗与粒度
 
-| 规则 | 说明 |
-|---|---|
-| 品类过滤 | 仅保留 `prodCat == "蔬菜"` |
-| 单位过滤 | 仅保留 `unitInfo == "斤"`（约 63 条"袋"计蔬菜因单位不可比被剔除） |
-| 价格字段 | `avgPrice` 转 `float`；缺失的 `low/high` 用均价兜底；均价 `<= 0` 的记录剔除 |
-| 日度聚合 | 同一 `(date, product)` 的多个规格/产地记录合并：均价取均值、最低/最高价取极值 |
-| 产地处理 | 多产地以 `/` 连接并去重（如 `冀/辽`）；约 20.8% 的记录无产地信息 |
+1. 仅保留 prodCat=蔬菜、unitInfo=斤；价格缺失或非正的记录剔除。
+2. 日度聚合：同一(date, product)内均价取报价均值、最低/最高价取极值，记录聚合前条数n_records。
+3. 该均值不是成交量加权价格。规格和产地构成变化可能影响均值，不能直接推断市场供需。
+4. 清洗文件产地合并去重；加载时规范化空值、分隔符、省级简称与顺序。例如“鲁冀”和“冀/鲁”归为同一集合。
+5. 未知地名保留原文，不猜测映射；缺失产地不参与切换判定。
+6. 分析加载层拒绝空数据、缺失日期/品种、重复品种日、缺失/非有限/非正价格。
 
-## 四、最终数据集字段
+## 关键质量指标
 
-文件：`data/veg_wholesale_xinfadi.csv`（22,362 行，145 个品种，216 天）
+- 产地缺失 4,654 条，占 20.8%。
+- 品种内相邻记录日期间隔超过一天的比较有 1,516 次，最长 18 天。
+- 覆盖不足30条报价的品种有 38 个；是否有滚动统计取决于此前30个日历天是否至少有15条报价，不能仅由总覆盖天数判定。
 
-| 字段 | 类型 | 说明 |
-|---|---|---|
-| date | date | 行情日期（2026-01-01 ~ 2026-08-11） |
-| product | str | 品种名（如 大白菜、黄瓜、鸡毛菜） |
-| avg_price | float | 当日均价（元/斤） |
-| low_price | float | 当日最低价（元/斤） |
-| high_price | float | 当日最高价（元/斤） |
-| origin | str | 产地（省级简称，可为多产地） |
-| n_records | int | 聚合前当日记录条数 |
+## 分析字段与有效比较
 
-## 五、数据局限（已知）
+原始分析字段：date、product、avg_price、low_price、high_price、origin、n_records。
+新增特征：gap_days、observed_pct_ch（相邻观测涨跌）、price_pct_ch（仅连续日历天）、history_n、rolling_mean、rolling_std、rolling_z、rolling_vol、origin_comparable与origin_changed。
+缺价不插值、不前向填充。z-score基准为[t−30日,t)，排除当日；零历史方差且价格不变记z=0，变化记有符号无穷值。
+输出中的缺失统计表示不能计算，不能默认为正常或零风险。
 
-1. **无成交量**：新发地公开接口不提供成交量/成交额，因此本项目不做量价联动分析，
-   供给风险/需求激增类规则不适用（原合成数据版规则已弃用）；
-2. **单市场**：仅覆盖北京新发地一个批发市场，结论外推需谨慎；
-3. **产地为省级简称**：部分记录为多产地（如 `冀鲁`），粒度较粗；
-4. **品种覆盖不均**：145 个品种中约 38 个覆盖天数不足 30 天（如季节性强、上架晚的品种），
-   这些品种的滚动 z-score 不可用，异常判定主要依赖单日环比规则；
-5. **接口限制**：日期过滤需表单编码、每页最多约 2000 条，抓取时需控制频率（脚本默认 0.4s 间隔）。
+## 外推限制
 
-## 六、数据更新
-
-数据按日更新，重新运行 `fetch_xinfadi_data.py`（断点续传，按记录 id 去重）即可增量拉取，
-再运行 `build_xinfadi_dataset.py` 更新分析数据集。
+无成交量/成交额、单市场、不到一年；产地和规格信息有限，品种覆盖不一致。
+天气、春节与供需影响需补充多年、多市场和外部证据验证，现阶段只作研究假设。
+检测规则用于报价复核，真实业务异常标签与采购效果尚未验证。

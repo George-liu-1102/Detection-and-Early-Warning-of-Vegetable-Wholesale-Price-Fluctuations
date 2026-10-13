@@ -1,0 +1,4 @@
+# 可选：交互分析和 Notebook 执行
+jupyterlab>=4.0
+nbconvert>=7.0
+ipykernel>=6.0

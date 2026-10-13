@@ -1,46 +1,33 @@
-<html><head><meta charset='utf-8'><title>蔬菜价格波动监测报告</title></head><body>
+<!doctype html><html lang='zh-CN'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>采购报价复核看板</title><style>body{font:16px system-ui;max-width:1100px;margin:32px auto;padding:0 20px;color:#243447;background:#f7f9fc}.table-wrap{overflow-x:auto;max-width:100%}table{border-collapse:collapse;width:100%;min-width:650px;background:white}td,th{padding:10px;border-bottom:1px solid #ddd;text-align:left}input{padding:10px;margin:12px 0}img{max-width:100%}small{color:#586a7d}</style></head><body>
 <h2>蔬菜批发价格波动检测与异常告警</h2>
-<p>生成时间：2026-08-11 20:06 ｜ 数据范围：2026-01-01 ~ 2026-08-11</p>
-<h3>高波动品种（风险评分 Top 12）</h3>
-<table border='1' cellpadding='4'><tr><th>品种</th><th>均价(元/斤)</th><th>平均日波动率</th><th>异常次数</th><th>风险评分</th></tr>
-<tr><td>鸡毛菜</td><td>3.93</td><td>0.141</td><td>77</td><td>216.41</td></tr>
-<tr><td>蒿子秆</td><td>3.50</td><td>0.116</td><td>80</td><td>206.16</td></tr>
-<tr><td>快菜</td><td>1.17</td><td>0.203</td><td>65</td><td>191.03</td></tr>
-<tr><td>奶白菜</td><td>2.96</td><td>0.117</td><td>72</td><td>190.17</td></tr>
-<tr><td>盖菜</td><td>2.15</td><td>0.127</td><td>75</td><td>188.27</td></tr>
-<tr><td>茼蒿</td><td>5.18</td><td>0.117</td><td>74</td><td>183.17</td></tr>
-<tr><td>空心菜</td><td>4.69</td><td>0.106</td><td>71</td><td>177.06</td></tr>
-<tr><td>苋菜</td><td>4.78</td><td>0.122</td><td>70</td><td>175.22</td></tr>
-<tr><td>荠菜</td><td>8.34</td><td>0.365</td><td>56</td><td>174.65</td></tr>
-<tr><td>菊花菜</td><td>2.81</td><td>0.105</td><td>63</td><td>171.05</td></tr>
-<tr><td>菜心</td><td>2.46</td><td>0.130</td><td>59</td><td>161.3</td></tr>
-<tr><td>黄心菜</td><td>3.12</td><td>0.070</td><td>63</td><td>159.7</td></tr>
-</table>
+<p>生成时间：2026-10-13 09:05（Asia/Shanghai） ｜ 数据范围：2026-01-01 ~ 2026-08-11</p>
+<p>历史行情回放：本页不代表实时价格。信号仅供采购复核，未验证成本节省或误报率。</p><p>覆盖 145 个品种，22,362 条记录；107 个品种可排名。窗口只使用此前 30 个日历天，缺价不填充。</p><label>搜索品种 <input id='search' placeholder='如：黄瓜' type='search'></label><h3>数据末日 2026-08-11：待复核报价 25 条</h3><p>复核步骤：核对报价与规格 → 联系供应商确认 → 结合库存和采购需求决定动作 → 记录结果。</p><div class='table-wrap'><table><thead><tr><th>品种</th><th>价格（元/斤）</th><th>日环比</th><th>信号</th><th>产地</th></tr></thead><tbody><tr data-product='圆白菜'><td>圆白菜</td><td>1.15</td><td>+109.1%</td><td>价格偏离、急涨</td><td>冀</td></tr><tr data-product='大白菜'><td>大白菜</td><td>0.75</td><td>+41.5%</td><td>急涨</td><td>冀</td></tr><tr data-product='豇豆'><td>豇豆</td><td>3.30</td><td>+37.5%</td><td>急涨</td><td>冀/鲁</td></tr><tr data-product='长茄'><td>长茄</td><td>1.15</td><td>+35.3%</td><td>价格偏离、急涨</td><td>晋/辽</td></tr><tr data-product='油麦菜'><td>油麦菜</td><td>4.75</td><td>+30.1%</td><td>价格偏离、急涨</td><td>京/冀</td></tr><tr data-product='油菜'><td>油菜</td><td>2.25</td><td>+23.3%</td><td>急涨</td><td>京/冀</td></tr><tr data-product='绿菜花'><td>绿菜花</td><td>1.45</td><td>+20.8%</td><td>急涨</td><td>冀</td></tr><tr data-product='毛冬瓜'><td>毛冬瓜</td><td>0.90</td><td>+12.5%</td><td>价格偏离</td><td>冀/豫/鲁</td></tr><tr data-product='荆芥'><td>荆芥</td><td>3.50</td><td>-12.5%</td><td>急跌</td><td>缺失，需补核</td></tr><tr data-product='芹菜'><td>芹菜</td><td>0.95</td><td>+11.8%</td><td>产地切换</td><td>冀</td></tr><tr data-product='散生菜'><td>散生菜</td><td>3.25</td><td>+10.2%</td><td>价格偏离</td><td>缺失，需补核</td></tr><tr data-product='黄瓜'><td>黄瓜</td><td>3.25</td><td>+8.3%</td><td>产地切换</td><td>冀/蒙/辽</td></tr><tr data-product='芥兰'><td>芥兰</td><td>3.25</td><td>-7.1%</td><td>价格偏离</td><td>缺失，需补核</td></tr><tr data-product='木耳菜'><td>木耳菜</td><td>4.00</td><td>+6.7%</td><td>价格偏离</td><td>缺失，需补核</td></tr><tr data-product='穿心莲'><td>穿心莲</td><td>4.25</td><td>-5.6%</td><td>价格偏离</td><td>缺失，需补核</td></tr><tr data-product='香菜'><td>香菜</td><td>6.00</td><td>+4.3%</td><td>持续高位</td><td>冀/蒙</td></tr><tr data-product='广茄'><td>广茄</td><td>0.85</td><td>+0.0%</td><td>价格偏离</td><td>冀</td></tr><tr data-product='柿子椒'><td>柿子椒</td><td>1.95</td><td>+0.0%</td><td>价格偏离、持续高位</td><td>鲁</td></tr><tr data-product='架豆'><td>架豆</td><td>5.00</td><td>+0.0%</td><td>持续高位</td><td>云/冀</td></tr><tr data-product='板栗南瓜'><td>板栗南瓜</td><td>1.40</td><td>+0.0%</td><td>价格偏离</td><td>桂/蒙</td></tr><tr data-product='散叶生菜'><td>散叶生菜</td><td>2.50</td><td>+0.0%</td><td>价格偏离、持续高位</td><td>冀</td></tr><tr data-product='贝贝南瓜'><td>贝贝南瓜</td><td>1.65</td><td>+0.0%</td><td>价格偏离</td><td>冀/蒙</td></tr><tr data-product='豌豆苗'><td>豌豆苗</td><td>7.25</td><td>+0.0%</td><td>价格偏离</td><td>缺失，需补核</td></tr><tr data-product='蒿子秆'><td>蒿子秆</td><td>8.00</td><td>+0.0%</td><td>价格偏离</td><td>缺失，需补核</td></tr><tr data-product='金丝南瓜'><td>金丝南瓜</td><td>0.90</td><td>+0.0%</td><td>价格偏离</td><td>冀/蒙</td></tr></tbody></table></div><h3>历史风险评分 Top 12</h3><small>使用有效比较日的信号率；权重为启发式，分数不是概率。缺少产地比较会影响可比性。样本不足的品种保留在 CSV 中，暂不排名。</small><div class='table-wrap'><table><thead><tr><th>品种</th><th>均价(元/斤)</th><th>日波动率</th><th>异常率</th><th>观测天数</th><th>产地可比较日</th><th>风险评分</th></tr></thead><tbody>
+<tr data-product='鸡毛菜'><td>鸡毛菜</td><td>3.93</td><td>0.106</td><td>22.9%</td><td>153</td><td>0</td><td>52.26</td></tr>
+<tr data-product='苦菊'><td>苦菊</td><td>3.03</td><td>0.111</td><td>26.9%</td><td>216</td><td>214</td><td>50.41</td></tr>
+<tr data-product='快菜'><td>快菜</td><td>1.17</td><td>0.178</td><td>25.5%</td><td>153</td><td>0</td><td>50.19</td></tr>
+<tr data-product='水萝卜'><td>水萝卜</td><td>2.14</td><td>0.189</td><td>26.3%</td><td>179</td><td>89</td><td>49.95</td></tr>
+<tr data-product='蒿子秆'><td>蒿子秆</td><td>3.50</td><td>0.090</td><td>20.3%</td><td>153</td><td>0</td><td>48.71</td></tr>
+<tr data-product='油菜'><td>油菜</td><td>1.07</td><td>0.159</td><td>31.0%</td><td>216</td><td>214</td><td>48.39</td></tr>
+<tr data-product='大葱'><td>大葱</td><td>1.37</td><td>0.031</td><td>15.3%</td><td>216</td><td>214</td><td>47.42</td></tr>
+<tr data-product='茴香'><td>茴香</td><td>2.45</td><td>0.132</td><td>24.5%</td><td>216</td><td>214</td><td>46.29</td></tr>
+<tr data-product='荠菜'><td>荠菜</td><td>8.34</td><td>0.320</td><td>25.3%</td><td>150</td><td>0</td><td>46.29</td></tr>
+<tr data-product='散叶生菜'><td>散叶生菜</td><td>1.60</td><td>0.065</td><td>15.3%</td><td>216</td><td>214</td><td>46.26</td></tr>
+<tr data-product='扁豆'><td>扁豆</td><td>4.32</td><td>0.075</td><td>19.0%</td><td>216</td><td>214</td><td>45.58</td></tr>
+<tr data-product='南北瓜'><td>南北瓜</td><td>1.42</td><td>0.023</td><td>13.0%</td><td>216</td><td>214</td><td>45.29</td></tr>
+</tbody></table></div>
 <h3>月度异常分布</h3>
-<img src='figures/monthly_anomalies.png' style='max-width:820px;border:1px solid #ccc;'><br/>
+<img src='figures/monthly_anomalies.png' alt='月度事件数与异常率' style='width:100%;max-width:820px;border:1px solid #ccc;'><br/>
 <h3>重点品种走势</h3>
-<h4>鸡毛菜</h4>
-<img src='figures/鸡毛菜.png' style='max-width:820px;border:1px solid #ccc;'><br/>
-<h4>蒿子秆</h4>
-<img src='figures/蒿子秆.png' style='max-width:820px;border:1px solid #ccc;'><br/>
-<h4>快菜</h4>
-<img src='figures/快菜.png' style='max-width:820px;border:1px solid #ccc;'><br/>
-<h4>奶白菜</h4>
-<img src='figures/奶白菜.png' style='max-width:820px;border:1px solid #ccc;'><br/>
-<h4>盖菜</h4>
-<img src='figures/盖菜.png' style='max-width:820px;border:1px solid #ccc;'><br/>
-<h4>茼蒿</h4>
-<img src='figures/茼蒿.png' style='max-width:820px;border:1px solid #ccc;'><br/>
-<h4>空心菜</h4>
-<img src='figures/空心菜.png' style='max-width:820px;border:1px solid #ccc;'><br/>
-<h4>苋菜</h4>
-<img src='figures/苋菜.png' style='max-width:820px;border:1px solid #ccc;'><br/>
-<h4>荠菜</h4>
-<img src='figures/荠菜.png' style='max-width:820px;border:1px solid #ccc;'><br/>
-<h4>菊花菜</h4>
-<img src='figures/菊花菜.png' style='max-width:820px;border:1px solid #ccc;'><br/>
-<h4>菜心</h4>
-<img src='figures/菜心.png' style='max-width:820px;border:1px solid #ccc;'><br/>
-<h4>黄心菜</h4>
-<img src='figures/黄心菜.png' style='max-width:820px;border:1px solid #ccc;'><br/>
-</body></html>
+<section data-product='鸡毛菜'><h4>鸡毛菜</h4><img src='figures/鸡毛菜.png' alt='鸡毛菜价格走势'></section>
+<section data-product='苦菊'><h4>苦菊</h4><img src='figures/苦菊.png' alt='苦菊价格走势'></section>
+<section data-product='快菜'><h4>快菜</h4><img src='figures/快菜.png' alt='快菜价格走势'></section>
+<section data-product='水萝卜'><h4>水萝卜</h4><img src='figures/水萝卜.png' alt='水萝卜价格走势'></section>
+<section data-product='蒿子秆'><h4>蒿子秆</h4><img src='figures/蒿子秆.png' alt='蒿子秆价格走势'></section>
+<section data-product='油菜'><h4>油菜</h4><img src='figures/油菜.png' alt='油菜价格走势'></section>
+<section data-product='大葱'><h4>大葱</h4><img src='figures/大葱.png' alt='大葱价格走势'></section>
+<section data-product='茴香'><h4>茴香</h4><img src='figures/茴香.png' alt='茴香价格走势'></section>
+<section data-product='荠菜'><h4>荠菜</h4><img src='figures/荠菜.png' alt='荠菜价格走势'></section>
+<section data-product='散叶生菜'><h4>散叶生菜</h4><img src='figures/散叶生菜.png' alt='散叶生菜价格走势'></section>
+<section data-product='扁豆'><h4>扁豆</h4><img src='figures/扁豆.png' alt='扁豆价格走势'></section>
+<section data-product='南北瓜'><h4>南北瓜</h4><img src='figures/南北瓜.png' alt='南北瓜价格走势'></section>
+<script>document.getElementById('search').addEventListener('input',function(){document.querySelectorAll('[data-product]').forEach(el=>{el.hidden=!el.dataset.product.includes(this.value.trim());});});</script></body></html>
